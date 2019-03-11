@@ -76,8 +76,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header name={this.state.naam}/>
-        <Shop />
+        <Header />
+        <Shop games={this.state.games}/>
         <Footer />
       </div>
 
