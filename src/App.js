@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Shop from './components/Shop'
+import Cart from './components/Cart'
 import './App.css'
 
 class App extends Component {
@@ -76,9 +78,20 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
-        <Shop games={this.state.games}/>
-        <Footer />
+        <BrowserRouter>
+          <>
+            <Header />
+            <Route 
+              exact path='/'
+              render={() => <Shop games={this.state.games} />}
+            />
+            <Route
+              path='/cart'
+              render={() => <Cart />}
+            />
+            <Footer />
+          </>
+        </BrowserRouter>
       </div>
 
     );

@@ -7,7 +7,7 @@ class Shop extends Component
         const games = this.props.games
 
         return games.map((game) => {
-            return <GameCard game={game} />
+            return <GameCard game={game} key={game.id}/>
         })    
     }
 
