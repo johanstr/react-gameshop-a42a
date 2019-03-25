@@ -23,7 +23,11 @@ class GameCard extends Component
                                 <button type="button" className="btn btn-primary">
                                     <i className="fa fa-info"></i>&nbsp;Info
                                 </button>
-                                <button type="button" className="btn btn-success">
+                                <button
+                                    type="button"
+                                    className="btn btn-success"
+                                    onClick={this.props.addToShoppingCart.bind(this, this.props.game.id)}
+                                >
                                     <i className="fas fa-shopping-cart"></i>&nbsp;Kopen
                                 </button>
                             </div>

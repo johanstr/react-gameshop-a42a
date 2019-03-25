@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom'
 
 class Header extends Component
 {
+    getBadge = () => {
+        if (this.props.count > 0) {
+            return (
+                <span className="badge badge-primary">{this.props.count}</span>
+            )
+        }
+    }
     render() {
         return (
             <header>
@@ -17,6 +24,7 @@ class Header extends Component
                                     <i className="fas fa-shopping-cart">
                                     </i>
                                     &nbsp;Winkelwagen
+                                    {this.getBadge()}
                                 </Link>
                             </li>
                         </ul>
