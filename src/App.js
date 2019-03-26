@@ -86,7 +86,15 @@ class App extends Component {
     }
 
     const old_cart = this.state.cart;
-    old_cart.push(cart_game);
+    const index = old_cart.findIndex(
+      (game) => {
+        return game.id === id
+      }
+    )
+    if(index === -1)
+      old_cart.push(cart_game);
+    else
+      old_cart[index].amount++
 
     this.setState({
       cart: old_cart
@@ -94,7 +102,11 @@ class App extends Component {
   }
 
   cartCount = () => {
-    return this.state.cart.length
+    let total_amount = 0;
+    for (let index = 0; index < this.state.cart.length; index++)
+      total_amount += this.state.cart[index].amount
+    
+    return total_amount
   }
 
   render() {
@@ -112,7 +124,7 @@ class App extends Component {
             />
             <Route
               path='/cart'
-              render={() => <Cart />}
+              render={() => <Cart cart={this.state.cart} />}
             />
             <Footer />
           </>
