@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Shop from './components/Shop'
+import Cart from './components/Cart'
 import './App.css'
 
 class App extends Component {
@@ -73,12 +75,60 @@ class App extends Component {
     cart: []
   }
 
+  addToCart = (id) => {
+    const gameToAdd = this.state.games.find((game) => {
+      return id === game.id
+    })
+
+    const cart_game = {
+      ...gameToAdd,
+      amount: 1
+    }
+
+    const old_cart = this.state.cart;
+    const index = old_cart.findIndex(
+      (game) => {
+        return game.id === id
+      }
+    )
+    if(index === -1)
+      old_cart.push(cart_game);
+    else
+      old_cart[index].amount++
+
+    this.setState({
+      cart: old_cart
+    });
+  }
+
+  cartCount = () => {
+    let total_amount = 0;
+    for (let index = 0; index < this.state.cart.length; index++)
+      total_amount += this.state.cart[index].amount
+    
+    return total_amount
+  }
+
   render() {
     return (
       <div className="App">
-        <Header name={this.state.naam}/>
-        <Shop />
-        <Footer />
+        <BrowserRouter>
+          <>
+            <Header count={this.cartCount()}/>
+            <Route 
+              exact path='/'
+              render={() => <Shop
+                games={this.state.games}
+                addToShoppingCart={this.addToCart}
+              />}
+            />
+            <Route
+              path='/cart'
+              render={() => <Cart cart={this.state.cart} />}
+            />
+            <Footer />
+          </>
+        </BrowserRouter>
       </div>
 
     );
